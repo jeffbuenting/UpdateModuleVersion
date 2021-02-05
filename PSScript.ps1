@@ -1,5 +1,5 @@
 ﻿Write-Output "Updating Version on ./$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
-
+get-childitem . | Select-Object name,@{ N='Parent'; E={ $_.fullname | Split-Path -Parent }},fullname
 
 
 Try {
