@@ -3,14 +3,14 @@ $File = get-childitem . | where Name -EQ "$(($env:GITHUB_REPOSITORY -split '/')[
 
 Write-output "PSD File = $($File.FullName)"
 
-#Try {
-#    $PSD = Get-Content $File.FullName -ErrorAction Stop
-#}
-#Catch {
-#    Write-Error "Error getting manifest"
-#    Exit 1
-#}
-#
+Try {
+    $PSD = Get-Content $File.FullName -ErrorAction Stop
+}
+Catch {
+    Write-Error "Error getting manifest"
+    Exit 1
+}
+
 #Try {
 #    $CurrentVersion = $PSD | Select-String -Pattern "ModuleVersion = '(.*)'" -ErrorAction Stop | foreach { $_.Matches.Groups[1].Value }
 #}
