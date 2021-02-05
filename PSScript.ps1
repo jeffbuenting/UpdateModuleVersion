@@ -1,9 +1,10 @@
 ﻿Write-Output "Updating Version on ./$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
-get-childitem . | Select-Object name,@{ N='Parent'; E={ $_.fullname | Split-Path -Parent }},fullname
+$File = get-childitem . | where Name -EQ "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
 
+Write-output "PSD File = $($File.FullName)"
 
 Try {
-    $PSD = Get-Content "./$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1" -ErrorAction Stop
+    $PSD = Get-Content $File.FullName -ErrorAction Stop
 }
 Catch {
     Write-Error "Error getting manifest"
