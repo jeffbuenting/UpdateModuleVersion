@@ -9,5 +9,5 @@ LABEL "repository"="https://github.com/jeffbuenting/UpdateModuleVersion"
 LABEL "homepage"="https://jeffbuenting.github.io"
 LABEL "maintainer"="Jeff Buenting"
 
-ADD Action.ps1 /Action.ps1
-ENTRYPOINT ["pwsh", "/Action.ps1"]
+ADD PSScript.ps1 /PSScript.ps1
+ENTRYPOINT ["pwsh", "/PSScript.ps1"]
