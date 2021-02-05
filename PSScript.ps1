@@ -1,10 +1,9 @@
-﻿Write-Output "Updating Version on $(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
-Write-Output "-----"
-Write-Output "$(Get-ChildItem . | out-String)"
+﻿Write-Output "Updating Version on ./$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
+
 
 
 Try {
-    $PSD = Get-Content "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1" -ErrorAction Stop
+    $PSD = Get-Content "./$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1" -ErrorAction Stop
 }
 Catch {
     Write-Error "Error getting manifest"
