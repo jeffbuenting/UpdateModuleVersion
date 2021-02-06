@@ -23,6 +23,8 @@ Write-Output "CurrentVersion = $CurrentVersion"
 
 
 $SplitVer = $CurrentVersion -split '.'
+Write-Output "SplitVer = $($SplitVer | out-string)"
+
 $NewVer = "$($SplitVer[0]).$($SplitVer[1]).$([int]$SplitVer[2] + 1)"
 
 Write-Output "Updating to $NewVer"         
