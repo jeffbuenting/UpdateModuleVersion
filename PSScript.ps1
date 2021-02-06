@@ -5,6 +5,8 @@ Write-output "PSD File = $($File.FullName)"
 
 Try {
     $PSD = Get-Content $File.FullName -ErrorAction Stop
+
+    $PSD
 }
 Catch {
     Write-Error "Error getting manifest"
