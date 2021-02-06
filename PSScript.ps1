@@ -35,4 +35,10 @@ Catch {
     Exit 1
 }
 
+# ----- Verify the file has been updated
+$PSD = Get-Content $File.FullName -ErrorAction Stop
+Write-Output "-----------"
+Write-Output "Updated Module Manifest"
+Write-Output $PSD
+
 Exit 0
