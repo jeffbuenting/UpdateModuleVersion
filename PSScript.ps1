@@ -1,7 +1,10 @@
-﻿Write-Output "Updating Version on $(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
+﻿Write-Output "Updating Version on ./$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
+$File = get-childitem . | where Name -EQ "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
+
+Write-output "PSD File = $($File.FullName)"
 
 Try {
-    $PSD = Get-Content "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1" -ErrorAction Stop
+    $PSD = Get-Content $File.FullName -ErrorAction Stop
 }
 Catch {
     Write-Error "Error getting manifest"
@@ -16,18 +19,20 @@ Catch {
     Exit 1
 }
           
-Write-Output "CurrentVersion = $CurrentVertion"
+Write-Output "CurrentVersion = $CurrentVersion"
 
 
-$SplitVer = $CurrentVersion -split '.'
-$NewVer = "$SplitVer[0].$SplitVer[1].$([int]$SplitVer[2] + 1)"
+$SplitVer = $CurrentVersion -split '\.'
+$NewVer = "$($SplitVer[0]).$($SplitVer[1]).$([int]$SplitVer[2] + 1)"
 
 Write-Output "Updating to $NewVer"         
 
 Try {    
-    Update-ModuleManifest -Path "$($env:GITHUB_REPOSITORY -split '/')[-1]).psd1" -ModuleVersion $NewVer -ErrorAction Stop
+    Update-ModuleManifest -Path $File.FullName -ModuleVersion $NewVer -ErrorAction Stop
 }
 Catch {
     Write-Error "Error updating manifest file."
     Exit 1
 }
+
+Exit 0
