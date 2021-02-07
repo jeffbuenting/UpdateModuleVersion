@@ -1,7 +1,14 @@
 ﻿Write-Output "Updating Version on ./$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
-$File = get-childitem . | where Name -EQ "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
 
-Write-output "PSD File = $($File.FullName)"
+try {
+    $File = get-childitem . -ErrorAction Stop | where Name -EQ "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
+
+    Write-output "PSD File = $($File.FullName)"
+}
+Catch {
+    Write-Error "Error getting fileName"
+    Exit 1
+}
 
 Try {
     $PSD = Get-Content $File.FullName -ErrorAction Stop
