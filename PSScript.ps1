@@ -1,45 +1,83 @@
-﻿Write-Output "Updating Version on ./$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
+﻿<#
+    .SYNOPSIS
+        updats a Github Repositories version.
 
-try {
-    $File = get-childitem . -ErrorAction Stop | where Name -EQ "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
+    .DESCRIPTION
+        The version can be either from a powershell module or from the readme.md file in the repo.
+#>
 
-    Write-output "PSD File = $($File.FullName)"
-}
-Catch {
-    Write-Error "Error getting fileName"
-    Exit 1
-}
+[CmdletBinding()]
+Param ()
 
-Try {
-    $PSD = Get-Content $File.FullName -ErrorAction Stop
-}
-Catch {
-    Write-Error "Error getting manifest"
-    Exit 1
-}
+if ( $env:INPUT_VERBOSE.tolower() -eq 'true' ) { $VerbosePreference = 'Continue' }
 
-Try {
-    $CurrentVersion = $PSD | Select-String -Pattern "ModuleVersion = '(.*)'" -ErrorAction Stop | foreach { $_.Matches.Groups[1].Value }
+$File = get-childitem . -ErrorAction SilentlyContinue | where Name -EQ "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
+
+if ( $File ) {
+    Try {
+        $PSD = Get-Content $File.FullName -ErrorAction Stop
+    }
+    Catch {
+        Write-Error "Error getting manifest"
+        Exit 1
+    }
+
+    Try {
+        $CurrentVersion = $PSD | Select-String -Pattern "ModuleVersion = '(.*)'" -ErrorAction Stop | foreach { $_.Matches.Groups[1].Value }
+    }
+    Catch {
+        Write-Error "Error finding ModuleVersion."
+        Exit 1
+    }
 }
-Catch {
-    Write-Error "Error finding ModuleVersion."
-    Exit 1
+else {
+    # ----- Grab the file
+    Try {
+        $ReadmeFile = get-childitem ./readme.md -ErrorAction Stop 
+
+        $ReadmeFile = Get-Content -Path $File.FullName -ErrorAction Stop
+    }
+    Catch {
+        Write-Error "Error getting file $FileName"
+        Exit 1
+    }
+
+    # ----- get the existing badge link
+    Try {
+        # ----- getting link and removing surrounding ()
+        $ExistingBadge = ($FileTxt | Select-String -Pattern "(\(https:\/\/img\.shields\.io\/badge\/Version-.*-.*\))" -ErrorAction Stop | foreach { $_.Matches.Groups[1].Value }).trimstart( '(' ).Trimend( ')' )
+
+        # ----- Get the existing badge parameters
+        $MatchingGroups = $ExistingBadge | Select-String -Pattern "https:\/\/img\.shields\.io\/badge\/Version-(.*)-(.*)" -ErrorAction Stop | foreach { $_.Matches.Groups }
+        $CurrentVersion = $MatchingGroups[1].Value
+
+    }
+    Catch {
+        Write-Error "Error Finding existing version from badge"
+        Exit 1
+    }
 }
           
-Write-Output "CurrentVersion = $CurrentVersion"
+Write-Verbose "CurrentVersion = $CurrentVersion"
 
 
 $SplitVer = $CurrentVersion -split '\.'
 $NewVer = "$($SplitVer[0]).$($SplitVer[1]).$([int]$SplitVer[2] + 1)"
 
-Write-Output "Updating to $NewVer"         
+Write-Verbose "Updating to $NewVer"   
 
-Try {    
-    Update-ModuleManifest -Path $File.FullName -ModuleVersion $NewVer -ErrorAction Stop
+if ( $File ) {      
+
+    Try {    
+        Update-ModuleManifest -Path $File.FullName -ModuleVersion $NewVer -ErrorAction Stop
+    }
+    Catch {
+        Write-Error "Error updating manifest file."
+        Exit 1
+    }
 }
-Catch {
-    Write-Error "Error updating manifest file."
-    Exit 1
-}
+
+#$NewVer | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+"::set-output name=version::$NewVer"
 
 Exit 0
