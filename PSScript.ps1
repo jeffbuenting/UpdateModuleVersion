@@ -37,7 +37,7 @@ else {
 
     # ----- Grab the file
     Try {
-        get-childitem .
+        get-childitem . | where name -Like '*.md'
 
         $ReadmeFile = get-childitem . -ErrorAction Stop | where name -EQ 'README.md'
 
