@@ -37,6 +37,8 @@ else {
 
     # ----- Grab the file
     Try {
+        get-childitem .
+
         $ReadmeFile = get-childitem . -ErrorAction Stop | where name -EQ 'README.md'
 
         $ReadmeFile = Get-Content -Path $File.FullName -ErrorAction Stop
