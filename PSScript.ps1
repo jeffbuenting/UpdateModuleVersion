@@ -37,9 +37,7 @@ else {
 
     # ----- Grab the file
     Try {
-        get-childitem .
-
-        $ReadmeFile = get-item .\readme.md -ErrorAction Stop 
+        $ReadmeFile = get-item ./README.md -ErrorAction Stop 
 
         $ReadmeFile = Get-Content -Path $File.FullName -ErrorAction Stop
     }
