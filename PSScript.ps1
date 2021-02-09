@@ -14,6 +14,8 @@ if ( $env:INPUT_VERBOSE.tolower() -eq 'true' ) { $VerbosePreference = 'Continue'
 $File = get-childitem . -ErrorAction SilentlyContinue | where Name -EQ "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
 
 if ( $File ) {
+    Write-Verbose "Powershell Module Repository"
+
     Try {
         $PSD = Get-Content $File.FullName -ErrorAction Stop
     }
@@ -31,9 +33,11 @@ if ( $File ) {
     }
 }
 else {
+    Write-Verbose "Not a PS Module repo."
+
     # ----- Grab the file
     Try {
-        $ReadmeFile = get-childitem ./readme.md -ErrorAction Stop 
+        $ReadmeFile = get-item ./readme.md -ErrorAction Stop 
 
         $ReadmeFile = Get-Content -Path $File.FullName -ErrorAction Stop
     }
