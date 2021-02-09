@@ -7,6 +7,7 @@ inputs:
     description: "True to display verbose info during processing"
     required: true
     default: 'false'
+    
 outputs:
   version:
     description: "updated version
