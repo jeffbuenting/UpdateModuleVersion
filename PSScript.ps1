@@ -37,9 +37,9 @@ else {
 
     # ----- Grab the file
     Try {
-        get-childitem . | where name -Like '*.md'
+        get-childitem . | where name -eq 'README.md'
 
-        $ReadmeFile = get-childitem . -ErrorAction Stop | where { $_.name.toupper() -EQ 'README.md'.ToUpper() }
+        $ReadmeFile = get-childitem . -ErrorAction Stop | where { $_.name.toupper() -like 'README.md'.ToUpper() }
 
         $ReadmeFile = Get-Content -Path $File.FullName -ErrorAction Stop
     }
