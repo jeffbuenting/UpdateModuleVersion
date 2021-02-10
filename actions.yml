@@ -1,0 +1,18 @@
+name: "UpdateModuleVersion"
+
+description: "Updates a github repo (PS Module or not) version"
+
+inputs:
+  verbose:
+    description: "True to display verbose info during processing"
+    required: true
+    default: 'false'
+    
+outputs:
+  version:
+    description: "updated version
+    
+branding:
+  color: blue
+  icon: terminal
+
