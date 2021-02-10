@@ -39,10 +39,13 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2        
         
-      - name: UpdateVersion
+      - name: Update Version
+        id: GetVersion
         uses: ./
         with:
           verbose: 'true' 
           
       - name: Show Version
-        run: echo ${{ steps.UpdateVersion.outputs.version }}
+        run: |
+          echo 'hello there'
+          echo ${{ steps.GetVersion.outputs.version }}
