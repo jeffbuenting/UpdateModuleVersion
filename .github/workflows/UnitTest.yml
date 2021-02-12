@@ -39,13 +39,20 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2        
         
-      - name: Update Version
-        id: GetVersion
-        uses: ./
-        with:
-          verbose: 'true' 
+      - name: GetRepoVersion
+        if: success()
+        id: GetRepoVer
+        uses: jeffbuenting/GetRepoVersion@getfile
+
+      - name: IncreaseVersion
+        id: IncreaseVer
+        shell: pwsh
+        run: |
+          $SplitVer = ${{ steps.GetRepoVer.outputs.version }} -split '\.'
+          $NewVer = "$($SplitVer[0]).$($SplitVer[1]).$([int]$SplitVer[2] + 1)"
+          Write-Output "::set-output name=version::$NewVer"
           
       - name: Show Version
         run: |
-          echo 'hello there'
-          echo ${{ steps.GetVersion.outputs.version }}
+          echo 'NewVer = (should be on the line below)'
+          echo ${{ steps.IncreaseVer.outputs.version }}
