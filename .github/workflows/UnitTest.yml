@@ -54,7 +54,7 @@ jobs:
             Major=$((SplitVer[0]))
             Minor=$((SplitVer[1]))
             Build='$((SplitVer[2] + 1))'
-            NewVer='$Major.$Minor.$Build'
+            NewVer='$(Major).${Minor}.$((Build))'
             unset IFS
             echo $NewVer
             echo '::set-output name=version::$NewVer'
