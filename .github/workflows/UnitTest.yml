@@ -51,7 +51,8 @@ jobs:
           Write-output "${{ steps.GetRepoVer.outputs.version }}"
           $SplitVer = ${{ steps.GetRepoVer.outputs.version }} -split '\.'
           $NewVer = "$($SplitVer[0]).$($SplitVer[1]).$([int]$SplitVer[2] + 1)"
-          "::set-output name=version::$NewVer"
+          Write-output "newver = $NewVer"
+          [System.Environment]::set-output name=version::$NewVer
           
       - name: Show Version
         run: |
