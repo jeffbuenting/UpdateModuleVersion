@@ -56,7 +56,7 @@ jobs:
             Build="$((SplitVer[2] + 1))"
             NewVer=$Major.Minor.Build
             unset IFS
-            echo '::set-output name=version::$NewVer'
+            echo '::set-output name=version::NewVer'
 
  #         Write-output "${{ steps.GetRepoVer.outputs.version }}"
  #         $SplitVer = ${{ steps.GetRepoVer.outputs.version }} -split '\.'
