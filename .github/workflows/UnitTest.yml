@@ -46,14 +46,21 @@ jobs:
 
       - name: IncreaseVersion
         id: IncreaseVer
-        shell: pwsh
+        shell: bash
         run: |
-          Write-output "${{ steps.GetRepoVer.outputs.version }}"
-          $SplitVer = ${{ steps.GetRepoVer.outputs.version }} -split '\.'
-          $NewVer = "$($SplitVer[0]).$($SplitVer[1]).$([int]$SplitVer[2] + 1)"
-          Write-output "newver = $NewVer"
-          [System.Environment]::set-output name=version::$NewVer
-          
+            CurVer=${{ steps.GetRepoVer.outputs.version }}
+            IFS='.'
+            read -a SplitVer <<<"$CurVer"
+            NewVer=${SplitVer[0]}.${SplitVer[1]}.${[int]$SplitVer[2] + 1}
+            unset IFS
+            echo '::set-output name=version::$NewVer'
+
+ #         Write-output "${{ steps.GetRepoVer.outputs.version }}"
+ #         $SplitVer = ${{ steps.GetRepoVer.outputs.version }} -split '\.'
+ #         $NewVer = "$($SplitVer[0]).$($SplitVer[1]).$([int]$SplitVer[2] + 1)"
+ #         Write-output "newver = $NewVer"
+ #         [System.Environment]::set-output name=version::$NewVer
+         
       - name: Show Version
         run: |
           echo 'NewVer = (should be on the line below)'
