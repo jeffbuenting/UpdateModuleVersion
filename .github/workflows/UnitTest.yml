@@ -48,9 +48,10 @@ jobs:
         id: IncreaseVer
         shell: pwsh
         run: |
+          Write-output "${{ steps.GetRepoVer.outputs.version }}"
           $SplitVer = ${{ steps.GetRepoVer.outputs.version }} -split '\.'
           $NewVer = "$($SplitVer[0]).$($SplitVer[1]).$([int]$SplitVer[2] + 1)"
-          Write-Output "::set-output name=version::$NewVer"
+          "::set-output name=version::$NewVer"
           
       - name: Show Version
         run: |
