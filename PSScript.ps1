@@ -13,64 +13,7 @@ Param (
     [String]$NewVer = $env:INPUT_NewVer
 )
 
- $VerbosePreference = 'Continue' 
-
-#$File = get-childitem . -ErrorAction SilentlyContinue | where Name -EQ "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
-#
-#if ( $File ) {
-#    Write-Verbose "Powershell Module Repository."
-#
-#    Try {
-#        $PSD = Get-Content $File.FullName -ErrorAction Stop
-#    }
-#    Catch {
-#        Write-Error "Error getting manifest"
-#        Exit 1
-#    }
-#
-#    Try {
-#        $CurrentVersion = $PSD | Select-String -Pattern "ModuleVersion = '(.*)'" -ErrorAction Stop | foreach { $_.Matches.Groups[1].Value }
-#    }
-#    Catch {
-#        Write-Error "Error finding ModuleVersion."
-#        Exit 1
-#    }
-#}
-#else {
-#    Write-Verbose "Not a PS Module repo."
-#
-#    # ----- Grab the file
-#    Try {
-#        $ReadmeFile = get-childitem . -ErrorAction Stop | where name -eq 'README.md'
-#
-#        $Filetxt = Get-Content -Path $ReadmeFile.FullName -ErrorAction Stop
-#    }
-#    Catch {
-#        Write-Error "Error getting file $FileName"
-#        Exit 1
-#    }
-#
-#    # ----- get the existing badge link
-#    Try {
-#        # ----- getting link and removing surrounding ()
-#        $ExistingBadge = ($FileTxt | Select-String -Pattern "(\(https:\/\/img\.shields\.io\/badge\/Version-.*-.*\))" -ErrorAction Stop | foreach { $_.Matches.Groups[1].Value }).trimstart( '(' ).Trimend( ')' )
-#
-#        # ----- Get the existing badge parameters
-#        $MatchingGroups = $ExistingBadge | Select-String -Pattern "https:\/\/img\.shields\.io\/badge\/Version-(.*)-(.*)" -ErrorAction Stop | foreach { $_.Matches.Groups }
-#        $CurrentVersion = $MatchingGroups[1].Value
-#
-#    }
-#    Catch {
-#        Write-Error "Error Finding existing version from badge"
-#        Exit 1
-#    }
-#}
-#          
-#Write-Verbose "CurrentVersion = $CurrentVersion"
-#
-#
-#$SplitVer = $CurrentVersion -split '\.'
-#$NewVer = "$($SplitVer[0]).$($SplitVer[1]).$([int]$SplitVer[2] + 1)"
+$VerbosePreference = 'Continue' 
 
 Write-Verbose "Updating to $NewVer"   
 
