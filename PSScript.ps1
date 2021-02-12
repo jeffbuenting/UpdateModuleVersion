@@ -13,7 +13,7 @@ Param (
     [String]$NewVer = $env:INPUT_NewVer
 )
 
-if ( $env:INPUT_VERBOSE.tolower() -eq 'true' ) { $VerbosePreference = 'Continue' }
+if ( $env:INPUT_VERBOSE -and $env:INPUT_VERBOSE.tolower() -eq 'true' ) { $VerbosePreference = 'Continue' }
 
 #$File = get-childitem . -ErrorAction SilentlyContinue | where Name -EQ "$(($env:GITHUB_REPOSITORY -split '/')[-1]).psd1"
 #
