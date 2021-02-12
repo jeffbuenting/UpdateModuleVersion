@@ -63,13 +63,13 @@ jobs:
  #         echo 'NewVer = (should be on the line below)'
  #         echo ${{ steps.IncreaseVer.outputs.version }}
  
-       - name: Update Module Version
+       - name: UpdateModuleVersion
          uses: ./
          with: 
            vertype: ${{ steps.GetRepoVer.outputs.vertype }}
            version: ${{ steps.IncreaseVer.outputs.version }}
            
-       - name: Update Readme Version Badge
+       - name: UpdateReadmeVersionBadge
          uses: jeffbuenting/UpdateCustomBadge@jeffbuenting-patch-1
          with:
            label: 'Version'
