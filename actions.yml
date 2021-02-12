@@ -3,6 +3,10 @@ name: "UpdateModuleVersion"
 description: "Updates a github repo (PS Module or not) version"
 
 inputs:
+  vertype: 
+    description: "From where the version was optained."
+    required: true
+
   newver:
     description: "updated version"
     required: true
