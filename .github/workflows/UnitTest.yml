@@ -58,10 +58,9 @@ jobs:
             unset IFS
             echo "::set-output name=version::$NewVer"
          
-  #    - name: Show Version
-  #      run: |
-  #        echo 'NewVer = (should be on the line below)'
-  #        echo ${{ steps.IncreaseVer.outputs.version }}
+      - name: Show Version
+        run: |
+          echo "NewVer = ${{ steps.IncreaseVer.outputs.version }}"
   
       - name: UpdateModuleVersion
         uses: ./
