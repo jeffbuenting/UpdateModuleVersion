@@ -15,9 +15,6 @@ Param (
 
 $VerbosePreference = 'Continue' 
 
-$NewVer = $env:INPUT_NEWVER
-$VerType = $env:INPUT_VERTYPE
-
 Write-Verbose "INPUT:"
 Write-Verbose "     Updating to $NewVer"
 Write-Verbose "     VerType = $VerType"   
