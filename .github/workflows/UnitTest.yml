@@ -65,8 +65,7 @@ jobs:
       - name: UpdateModuleVersion
         uses: ./
         with: 
-          #vertype: ${{ steps.GetRepoVer.outputs.versiontype }}
-          vertype: 'test'
+          vertype: ${{ steps.GetRepoVer.outputs.versiontype }}
           newver: ${{ steps.IncreaseVer.outputs.version }}
            
       - name: UpdateReadmeVersionBadge
