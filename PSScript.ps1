@@ -15,8 +15,11 @@ Param (
 
 $VerbosePreference = 'Continue' 
 
-Write-Verbose "Updating to $NewVer"
-Write-Verbose "VerType = $VerType"   
+$NewVer = $env:INPUT_NEWVER
+
+Write-Verbose "INPUT:"
+Write-Verbose "     Updating to $NewVer"
+Write-Verbose "     VerType = $VerType"   
 
 switch ( $VerType ) {
     'modulemanifest' {
