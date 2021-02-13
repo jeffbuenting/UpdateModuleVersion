@@ -65,8 +65,8 @@ jobs:
       - name: UpdateModuleVersion
         uses: ./
         with: 
-          vertype: ${{ steps.GetRepoVer.outputs.vertype }}
-          version: ${{ steps.IncreaseVer.outputs.version }}
+          vertype: ${{ steps.GetRepoVer.outputs.versiontype }}
+          newver: ${{ steps.IncreaseVer.outputs.version }}
            
       - name: UpdateReadmeVersionBadge
         uses: jeffbuenting/UpdateCustomBadge@jeffbuenting-patch-1
