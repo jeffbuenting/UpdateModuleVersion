@@ -71,7 +71,7 @@ jobs:
       - name: UpdateReadmeVersionBadge
         uses: jeffbuenting/UpdateCustomBadge@jeffbuenting-patch-1
         with:
-          filename: README.md
+          filename: 'README.md'
           label: 'Version'
           message: ${{ steps.IncreaseVer.outputs.version }}
  
