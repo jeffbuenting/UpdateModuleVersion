@@ -10,7 +10,7 @@
 Param (
     [String]$VerType = $env:INPUT_VERTYPE,
 
-    [String]$NewVer = $env:INPUT_NewVer
+    [String]$NewVer = $env:INPUT_NEWVER
 )
 
 $VerbosePreference = 'Continue' 
@@ -19,6 +19,8 @@ Write-Verbose "Updating to $NewVer"
 
 switch ( $VerType ) {
     'modulemanifest' {
+        Write-Verbose "Updating Powershell Module Manifest."
+
         Try {    
         Update-ModuleManifest -Path $File.FullName -ModuleVersion $NewVer -ErrorAction Stop
         }
