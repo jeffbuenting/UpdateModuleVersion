@@ -21,7 +21,7 @@ jobs:
   pester-test:
     name: Pester test
     # ----- skip job if 'skip ci' in commit and if it is the main branch
-    if: "!contains(github.event.commits[0].message, '[skip ci]') && !endswith(github.ref,'main')"
+    if: "!contains(github.event.commits[0].message, '[skip ci]')"
     runs-on: windows-latest
     steps:
       - name: Check out repository code
@@ -36,7 +36,7 @@ jobs:
   UpdateModuleVersion:
     name: UpdatesModuleVersion and returns that Version
     needs: pester-test
-    if: ${{ success() }} && github.event_name != 'pull_request'
+    if: "${{ success() }} && github.event_name != 'pull_request'"
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -93,7 +93,7 @@ jobs:
   TagMain:
     name: tags the main branch
     needs: pester-test
-    if: endswith( github.ref,'main' ) && github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    if: "${{success}} && endswith( github.ref,'main' ) && github.event_name == 'pull_request' && github.event.pull_request.merged == true"
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
