@@ -92,7 +92,7 @@ jobs:
  
   TagMain:
     name: tags the main branch
-    if: endswith( github.ref,'main' ) && github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: endswith( github.ref,'dev' ) && github.event_name == 'pull_request' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
