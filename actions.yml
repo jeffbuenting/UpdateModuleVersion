@@ -3,15 +3,14 @@ name: "UpdateModuleVersion"
 description: "Updates a github repo (PS Module or not) version"
 
 inputs:
-  verbose:
-    description: "True to display verbose info during processing"
+  vertype: 
+    description: "From where the version was optained."
     required: true
-    default: 'false'
-    
-outputs:
-  version:
-    description: "updated version
-    
+
+  newver:
+    description: "updated version"
+    required: true
+        
 branding:
   color: blue
   icon: terminal
