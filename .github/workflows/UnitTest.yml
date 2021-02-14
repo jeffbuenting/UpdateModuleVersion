@@ -21,7 +21,7 @@ jobs:
   pester-test:
     name: Pester test
     # ----- skip job if 'skip ci' in commit and if it is the main branch
-    if: "!contains(github.event.commits[0].message, '[skip ci]') && endswith(github.ref,'main') == false"
+    if: "!contains(github.event.commits[0].message, '[skip ci]') && !endswith(github.ref,'main')"
     runs-on: windows-latest
     steps:
       - name: Check out repository code
@@ -90,7 +90,6 @@ jobs:
  
  # ---------- Main branch
  
- jobs: 
    TagMain:
     name: tags the main branch
     if: endswith( github.ref,'main' ) && github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
