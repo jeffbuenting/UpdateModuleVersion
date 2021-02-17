@@ -28,7 +28,7 @@ jobs:
           include_paths: Tests
           github_token: ${{ secrets.GITHUB_TOKEN }}
           
-     - name: info
+      - name: info
         run: |
           echo "Branch? = ${{ github.ref }}
           echo "Branch = ${{ github.event.pull_request.head.ref }}"
