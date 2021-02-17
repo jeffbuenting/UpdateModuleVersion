@@ -27,14 +27,16 @@ jobs:
   #      with:
   #        include_paths: Tests
   #        github_token: ${{ secrets.GITHUB_TOKEN }}
-  #        
-  #    - name: info
-  #      run: |
-  #        echo "Branch? = ${{ github.ref }}"
-  #        echo "Branch = ${{ github.event.pull_request.head.ref }}"
-  #        echo "Trigger = ${{ github.event_name }}"
-  #        echo "Trigger Ation = ${{ github.event.action }}"
-  #        echo "Merge = ${{ github.event.pull_request.merged }}"
+
+  GitHubInfo:  
+    name: Display info
+    if: github.event.pull_request.merged == true
+      run: |
+        echo "Branch? = ${{ github.ref }}"
+        echo "Branch = ${{ github.event.pull_request.head.ref }}"
+        echo "Trigger = ${{ github.event_name }}"
+        echo "Trigger Ation = ${{ github.event.action }}"
+        echo "Merge = ${{ github.event.pull_request.merged }}"
 
   tagmain:
     name: tag main branch

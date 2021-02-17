@@ -19,6 +19,16 @@ on:
 
 
 jobs:
+  GitHubInfo:  
+    name: Display info
+    if: github.event.pull_request.merged == true
+      run: |
+        echo "Branch? = ${{ github.ref }}"
+        echo "Branch = ${{ github.event.pull_request.head.ref }}"
+        echo "Trigger = ${{ github.event_name }}"
+        echo "Trigger Ation = ${{ github.event.action }}"
+        echo "Merge = ${{ github.event.pull_request.merged }}"
+
   pester-test:
     name: Pester test
     # ----- skip job if 'skip ci' in commit and if it is the main branch
