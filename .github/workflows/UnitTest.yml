@@ -7,9 +7,9 @@ on:
   # don't need push on main as only PR should be coming in (and this prevents the double build with PR because it then does a push)
   push:
     branches:
-      '**'
-      '!dev'
-      '!main'
+      - '**'
+      - '!dev'
+      - '!main'
 
 
   workflow_dispatch:
