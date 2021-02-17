@@ -43,7 +43,7 @@ jobs:
   tagmain:
     name: tag main branch
  #   needs: pester-test 
-    if: github.ref == 'refs/heads/main' && github.event.pull_request.merged == true
+    if: github.ref == 'main' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: info
