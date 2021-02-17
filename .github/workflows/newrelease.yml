@@ -27,11 +27,19 @@ jobs:
         with:
           include_paths: Tests
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          
+     - name: info
+        run: |
+          echo "Branch? = ${{ github.ref }}
+          echo "Branch = ${{ github.event.pull_request.head.ref }}"
+          echo "Trigger = ${{ github.event_name }}"
+          echo "Trigger Ation = ${{ github.event.action }}"
+          echo "Merge = ${{ github.event.pull_request.merged }}"
 
   tagmain:
     name: tag main branch
     needs: pester-test 
-    if: success() && github.ref == 'refs/heads/master'
+    if: success() && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: info
