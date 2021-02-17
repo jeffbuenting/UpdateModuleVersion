@@ -36,7 +36,7 @@ jobs:
         run: |
           echo "github.ref (branch?) = ${{ github.ref }}"
           echo "github.event.pull_request.head.ref (Branch) = ${{ github.event.pull_request.head.ref }}"
-          echo "github.base.ref (PR Target branch) = ${{ github.base.ref }}"
+          echo "github.base_ref (PR Target branch) = ${{ github.base_ref }}"
           echo "Trigger = ${{ github.event_name }}"
           echo "Trigger Ation = ${{ github.event.action }}"
           echo "Merge = ${{ github.event.pull_request.merged }}"
@@ -44,7 +44,7 @@ jobs:
   tagmain:
     name: tag main branch
  #   needs: pester-test 
-    if: github.base.ref == 'main' && github.event.pull_request.merged == true
+    if: github.base_ref == 'main' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: info
