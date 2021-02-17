@@ -4,7 +4,7 @@ Github Action to update PowerShell Module or package.json version.
 ---
 [![GitHub Workflow - UnitTest](https://github.com/jeffbuenting/UpdateModuleVersion/workflows/UnitTest/badge.svg)](https://github.com/jeffbuenting/UpdateModuleVersion/actions?workflow='UnitTest')
 
-![Version](https://img.shields.io/badge/Version-1.1.26-brightgreen)
+![Version](https://img.shields.io/badge/Version-1.1.27-brightgreen)
 
 Use this action to update the PowerShell or package.json version field.
 
