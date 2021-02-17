@@ -13,33 +13,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  pester-test:
-    name: Pester test
-    # ----- skip job if 'skip ci' in commit and if it is the main branch
-    if: "!contains(github.event.commits[0].message, '[skip ci]') && github.event.pull_request.merged == true"
-    runs-on: windows-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      
-      - name: pester-tests-report
-        uses: zyborg/pester-tests-report@v1.3.3
-        with:
-          include_paths: Tests
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: info
-        run: |
-          echo "Branch? = ${{ github.ref }}"
-          echo "Branch = ${{ github.event.pull_request.head.ref }}"
-          echo "Trigger = ${{ github.event_name }}"
-          echo "Trigger Ation = ${{ github.event.action }}"
-          echo "Merge = ${{ github.event.pull_request.merged }}"
+  #pester-test:
+  #  name: Pester test
+  #  # ----- skip job if 'skip ci' in commit and if it is the main branch
+  #  if: "!contains(github.event.commits[0].message, '[skip ci]') && github.event.pull_request.merged == true"
+  #  runs-on: windows-latest
+  #  steps:
+  #    - name: Check out repository code
+  #      uses: actions/checkout@v2
+  #    
+  #    - name: pester-tests-report
+  #      uses: zyborg/pester-tests-report@v1.3.3
+  #      with:
+  #        include_paths: Tests
+  #        github_token: ${{ secrets.GITHUB_TOKEN }}
+  #        
+  #    - name: info
+  #      run: |
+  #        echo "Branch? = ${{ github.ref }}"
+  #        echo "Branch = ${{ github.event.pull_request.head.ref }}"
+  #        echo "Trigger = ${{ github.event_name }}"
+  #        echo "Trigger Ation = ${{ github.event.action }}"
+  #        echo "Merge = ${{ github.event.pull_request.merged }}"
 
   tagmain:
     name: tag main branch
-    needs: pester-test 
-    if: success() && github.ref == 'refs/heads/main'
+ #   needs: pester-test 
+    if: github.ref == 'refs/heads/main' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: info

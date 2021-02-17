@@ -10,7 +10,10 @@ on:
       - '**'
       - '!dev'
       - '!main'
-
+      
+  pull_request:
+    branches:
+      - '**'
 
   workflow_dispatch:
 
@@ -34,7 +37,7 @@ jobs:
   UpdateModuleVersion:
     name: UpdatesModuleVersion and returns that Version
     needs: pester-test
-    if: ${{ success() }}
+    if: success() && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -86,4 +89,18 @@ jobs:
           git commit -am "skip ci - Commit Updated files to Repo"
           git push
  
- 
+   FailedPRPesterTest:
+    name: Close PR after failed tests
+    needs: pester-test
+    if: failure() && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR info
+        run: echo "PR number = ${{ github.event.number }}"
+    
+      - name: Close Pull
+        uses: peter-evans/close-pull@v1
+        with:
+          pull-request-number: github.event.number
+          comment: Tests failed. Auto-closing pull request
+          delete-branch: false
