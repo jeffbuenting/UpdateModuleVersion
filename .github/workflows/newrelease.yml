@@ -30,6 +30,7 @@ jobs:
 
   GitHubInfo:  
     name: Display info
+    steps:
       run: |
         echo "Branch? = ${{ github.ref }}"
         echo "Branch = ${{ github.event.pull_request.head.ref }}"
