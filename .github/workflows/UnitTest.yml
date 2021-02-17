@@ -21,7 +21,6 @@ on:
 jobs:
   GitHubInfo:  
     name: Display info
-    if: github.event.pull_request.merged == true
       run: |
         echo "Branch? = ${{ github.ref }}"
         echo "Branch = ${{ github.event.pull_request.head.ref }}"
