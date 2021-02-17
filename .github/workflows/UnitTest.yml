@@ -89,7 +89,7 @@ jobs:
           git commit -am "skip ci - Commit Updated files to Repo"
           git push
  
-   FailedPRPesterTest:
+  FailedPRPesterTest:
     name: Close PR after failed tests
     needs: pester-test
     if: failure() && github.event_name != 'pull_request'
