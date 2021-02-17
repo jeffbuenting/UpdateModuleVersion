@@ -21,6 +21,7 @@ on:
 jobs:
   GitHubInfo:  
     name: Display info
+    runs-on: ubuntu-latest
     steps:
       - name: output
         run: |
