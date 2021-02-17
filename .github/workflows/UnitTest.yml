@@ -22,12 +22,13 @@ jobs:
   GitHubInfo:  
     name: Display info
     steps:
-      run: |
-        echo "Branch? = ${{ github.ref }}"
-        echo "Branch = ${{ github.event.pull_request.head.ref }}"
-        echo "Trigger = ${{ github.event_name }}"
-        echo "Trigger Ation = ${{ github.event.action }}"
-        echo "Merge = ${{ github.event.pull_request.merged }}"
+      - name output
+        run: |
+          echo "Branch? = ${{ github.ref }}"
+          echo "Branch = ${{ github.event.pull_request.head.ref }}"
+          echo "Trigger = ${{ github.event_name }}"
+          echo "Trigger Ation = ${{ github.event.action }}"
+          echo "Merge = ${{ github.event.pull_request.merged }}"
 
   pester-test:
     name: Pester test
