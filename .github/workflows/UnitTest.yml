@@ -25,8 +25,9 @@ jobs:
     steps:
       - name: output
         run: |
-          echo "Branch? = ${{ github.ref }}"
-          echo "Branch = ${{ github.event.pull_request.head.ref }}"
+          echo "github.ref (branch?) = ${{ github.ref }}"
+          echo "github.event.pull_request.head.ref (Branch) = ${{ github.event.pull_request.head.ref }}"
+          echo "github.base_ref (PR Target branch) = ${{ github.base_ref }}"
           echo "Trigger = ${{ github.event_name }}"
           echo "Trigger Ation = ${{ github.event.action }}"
           echo "Merge = ${{ github.event.pull_request.merged }}"
