@@ -4,15 +4,16 @@ name: UnitTest
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
+  # don't need push on main as only PR should be coming in (and this prevents the double build with PR because it then does a push)
   push:
     branches:
-      '**'
+      - '**'
+      - '!dev'
+      - '!main'
 
-  # Allows you to run this workflow manually from the Actions tab
+
   workflow_dispatch:
 
-# ---------- all branches except main
 
 jobs:
   pester-test:

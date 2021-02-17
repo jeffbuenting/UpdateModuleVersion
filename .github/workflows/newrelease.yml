@@ -1,3 +1,6 @@
+# ----- run only on PR Merge
+# https://brennerm.github.io/posts/trigger-github-actions-on-pr-close.html
+
 name: newrelease
 
 on:
@@ -5,11 +8,9 @@ on:
   pull_request:
     types: [ closed ]
     branches:
-      '**'
+      - 'main'
       
   workflow_dispatch:
-
-# ---------- all branches except main
 
 jobs:
   pester-test:
